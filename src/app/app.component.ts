@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { TicTacToeComponent } from './tic-tac-toe/tic-tac-toe.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
+  standalone: true,
+  imports: [TicTacToeComponent],
+  template: `
+    <app-tic-tac-toe></app-tic-tac-toe>
+  `,
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'tic-tac-toe';
+  private readonly title = 'tic-tac-toe';
 }
