@@ -1,0 +1,44 @@
+@if (aiPerformance) {
+  <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
+    <h3 class="text-white text-lg font-semibold mb-4">🤖 AI Performance (Last Move)</h3>
+
+    <div [class]="'bg-' + getPerformanceColor() + '-500/10 border border-' + getPerformanceColor() + '-400/30 rounded-xl p-4'">
+      <h4 [class]="'text-' + getPerformanceColor() + '-400 font-semibold mb-3'">
+        {{ getAlgorithmDisplayName() }}
+      </h4>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+        <div class="text-center">
+          <div class="text-white font-bold text-lg">{{ formatNumber(aiPerformance.nodesExplored) }}</div>
+          <div class="text-gray-400 text-xs">Nodes Explored</div>
+        </div>
+
+        <div class="text-center">
+          <div class="text-white font-bold text-lg">{{ aiPerformance.executionTime.toFixed(2) }}ms</div>
+          <div class="text-gray-400 text-xs">Execution Time</div>
+        </div>
+
+        <div class="text-center">
+          <div class="text-white font-bold text-lg">{{ aiPerformance.bestMove }}</div>
+          <div class="text-gray-400 text-xs">Best Move</div>
+        </div>
+
+        <div class="text-center">
+          <div class="text-white font-bold text-lg">{{ aiPerformance.depth }}</div>
+          <div class="text-gray-400 text-xs">Search Depth</div>
+        </div>
+      </div>
+
+      <div class="mt-4 p-3 bg-white/10 rounded-lg">
+        <div class="flex justify-between items-center">
+          <span class="text-gray-300 text-sm">Efficiency Rating:</span>
+          <span [class]="'font-semibold ' + (getEfficiencyRating() === 'Excellent' ? 'text-green-400' :
+                                            getEfficiencyRating() === 'Good' ? 'text-blue-400' :
+                                            getEfficiencyRating() === 'Fair' ? 'text-yellow-400' : 'text-red-400')">
+            {{ getEfficiencyRating() }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+}

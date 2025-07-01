@@ -1,0 +1,64 @@
+<div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
+  <h3 class="text-white text-lg font-semibold mb-4">⏱️ Move Timers</h3>
+
+  <!-- Current Timer (Human players only) -->
+  @if (timerState?.isRunning && isCurrentPlayerHuman()) {
+    <div class="text-center mb-4">
+      <div class="text-2xl font-mono text-yellow-400 mb-1">
+        {{ formatTime(timerState?.currentPlayerTime || 0) }}
+      </div>
+      <div class="text-sm text-gray-400">Current Move</div>
+    </div>
+  }
+
+  <!-- AI Performance Display (when AI just moved) -->
+  @if (gameState?.aiPerformance && isAIPlayer(getLastPlayer())) {
+    <div class="mb-4 p-3 bg-purple-500/20 rounded-lg border border-purple-400/30">
+      <div class="text-purple-400 font-semibold text-sm text-center mb-2">
+        🤖 {{ getPlayerDisplayName(getLastPlayer()) }} AI Performance
+      </div>
+             <div class="grid grid-cols-2 gap-2 text-xs">
+         <div class="text-center">
+           <div class="text-green-400 font-mono">{{ gameState?.aiPerformance?.alphaBetaPruningTime }}ms</div>
+           <div class="text-gray-400">Alpha-Beta</div>
+         </div>
+         <div class="text-center">
+           <div class="text-blue-400 font-mono">{{ gameState?.aiPerformance?.minimaxDecisionTime }}ms</div>
+           <div class="text-gray-400">Minimax</div>
+         </div>
+       </div>
+       <div class="text-center mt-2">
+         <div class="text-yellow-400 font-mono text-sm">{{ gameState?.aiPerformance?.executionTime }}ms total</div>
+         <div class="text-gray-400 text-xs">{{ gameState?.aiPerformance?.nodesExplored }} nodes explored</div>
+       </div>
+    </div>
+  }
+
+  <!-- Player Times -->
+  <div class="grid grid-cols-2 gap-4">
+    <div class="text-center p-3 bg-red-500/20 rounded-lg border border-red-400/30">
+      <div class="text-red-400 font-semibold text-sm mb-1">
+        {{ getPlayerDisplayName('X') }} (X)
+      </div>
+      @if (isAIPlayer('X')) {
+        <div class="text-white font-mono text-xs">AI Decision Making</div>
+      } @else {
+        <div class="text-white font-mono">
+          {{ formatTime(timerState?.player1TotalTime || 0) }}
+        </div>
+      }
+    </div>
+    <div class="text-center p-3 bg-blue-500/20 rounded-lg border border-blue-400/30">
+      <div class="text-blue-400 font-semibold text-sm mb-1">
+        {{ getPlayerDisplayName('O') }} (O)
+      </div>
+      @if (isAIPlayer('O')) {
+        <div class="text-white font-mono text-xs">AI Decision Making</div>
+      } @else {
+        <div class="text-white font-mono">
+          {{ formatTime(timerState?.player2TotalTime || 0) }}
+        </div>
+      }
+    </div>
+  </div>
+</div>

@@ -1,0 +1,147 @@
+@if (isOpen) {
+  <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+       (click)="onBackdropClick($event)">
+    <div class="bg-gray-900 rounded-2xl border border-white/20 max-w-4xl w-full max-h-[90vh] overflow-y-auto custom-scrollbar"
+         (click)="stopPropagation($event)">
+
+      <!-- Header -->
+      <div class="sticky top-0 bg-gray-900 border-b border-white/20 p-6 rounded-t-2xl">
+        <div class="flex items-center justify-between">
+          <h2 class="text-2xl font-bold text-white">🎮 How to Play Tic-Tac-Toe</h2>
+          <button (click)="onClose()"
+                  class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-white/10">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="p-6 space-y-8">
+
+        <!-- Basic Rules -->
+        <section>
+          <h3 class="text-xl font-semibold text-white mb-4 flex items-center">
+            <span class="mr-2">📋</span>
+            Basic Rules
+          </h3>
+          <div class="bg-white/5 rounded-xl p-4 space-y-2">
+            <p class="text-gray-300">• Players take turns placing X's and O's on a 3×3 grid</p>
+            <p class="text-gray-300">• The first player to get three in a row (horizontally, vertically, or diagonally) wins</p>
+            <p class="text-gray-300">• If all squares are filled without a winner, the game is a tie</p>
+            <p class="text-gray-300">• X always goes first</p>
+          </div>
+        </section>
+
+        <!-- Game Modes -->
+        <section>
+          <h3 class="text-xl font-semibold text-white mb-4 flex items-center">
+            <span class="mr-2">🎯</span>
+            Game Modes
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-green-500/10 border border-green-400/30 rounded-xl p-4">
+              <h4 class="text-green-400 font-semibold mb-2">Human vs Human</h4>
+              <p class="text-gray-300 text-sm">Two players take turns on the same device</p>
+            </div>
+            <div class="bg-blue-500/10 border border-blue-400/30 rounded-xl p-4">
+              <h4 class="text-blue-400 font-semibold mb-2">Human vs AI</h4>
+              <p class="text-gray-300 text-sm">Play against the computer with different difficulty levels</p>
+            </div>
+            <div class="bg-purple-500/10 border border-purple-400/30 rounded-xl p-4">
+              <h4 class="text-purple-400 font-semibold mb-2">AI vs AI</h4>
+              <p class="text-gray-300 text-sm">Watch two AI algorithms compete against each other</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- AI Algorithms -->
+        <section>
+          <h3 class="text-xl font-semibold text-white mb-4 flex items-center">
+            <span class="mr-2">🤖</span>
+            AI Algorithms
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-red-500/10 border border-red-400/30 rounded-xl p-4">
+              <h4 class="text-red-400 font-semibold mb-2">Minimax</h4>
+              <p class="text-gray-300 text-sm mb-2">
+                Classic game theory algorithm that explores all possible moves to find the optimal play.
+              </p>
+              <ul class="text-gray-400 text-xs space-y-1">
+                <li>• Explores every possible game state</li>
+                <li>• Guarantees optimal play</li>
+                <li>• Slower but thorough</li>
+              </ul>
+            </div>
+            <div class="bg-blue-500/10 border border-blue-400/30 rounded-xl p-4">
+              <h4 class="text-blue-400 font-semibold mb-2">Alpha-Beta Pruning</h4>
+              <p class="text-gray-300 text-sm mb-2">
+                Optimized version of Minimax that cuts off branches that won't affect the final decision.
+              </p>
+              <ul class="text-gray-400 text-xs space-y-1">
+                <li>• Prunes unnecessary branches</li>
+                <li>• Same optimal results as Minimax</li>
+                <li>• Much faster execution</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Performance Features -->
+        <section>
+          <h3 class="text-xl font-semibold text-white mb-4 flex items-center">
+            <span class="mr-2">⚡</span>
+            Performance Features
+          </h3>
+          <div class="bg-white/5 rounded-xl p-4 space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <h4 class="text-yellow-400 font-semibold mb-2">🕐 Move Timers</h4>
+                <p class="text-gray-300 text-sm">Track how long each player takes to make moves and see total game time.</p>
+              </div>
+              <div>
+                <h4 class="text-green-400 font-semibold mb-2">📊 Game Statistics</h4>
+                <p class="text-gray-300 text-sm">View detailed stats about wins, losses, and game patterns.</p>
+              </div>
+              <div>
+                <h4 class="text-blue-400 font-semibold mb-2">🔬 Algorithm Analysis</h4>
+                <p class="text-gray-300 text-sm">See how many nodes each AI algorithm explores and execution times.</p>
+              </div>
+              <div>
+                <h4 class="text-purple-400 font-semibold mb-2">📈 Performance Comparison</h4>
+                <p class="text-gray-300 text-sm">Compare Minimax vs Alpha-Beta performance side by side.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Tips -->
+        <section>
+          <h3 class="text-xl font-semibold text-white mb-4 flex items-center">
+            <span class="mr-2">💡</span>
+            Pro Tips
+          </h3>
+          <div class="bg-yellow-500/10 border border-yellow-400/30 rounded-xl p-4 space-y-2">
+            <p class="text-gray-300">• Control the center square - it's part of the most winning combinations</p>
+            <p class="text-gray-300">• Watch for two-in-a-row situations - block your opponent or create your own</p>
+            <p class="text-gray-300">• Use the AI comparison feature to learn about algorithm efficiency</p>
+            <p class="text-gray-300">• Try different AI algorithms to see how they approach the same situations</p>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Footer -->
+      <div class="border-t border-white/20 p-6">
+        <div class="flex justify-center">
+          <button (click)="onClose()"
+                  class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors">
+            Got It!
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+}

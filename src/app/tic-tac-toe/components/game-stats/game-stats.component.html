@@ -1,0 +1,51 @@
+<div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
+  <h3 class="text-white text-lg font-semibold mb-4">📊 Game Stats</h3>
+
+  <div class="space-y-3">
+    <div class="flex justify-between items-center">
+      <span class="text-gray-400">Game Mode:</span>
+      <span class="text-white font-semibold">
+        {{ getGameModeDisplay() }}
+      </span>
+    </div>
+
+    <div class="flex justify-between items-center">
+      <span class="text-gray-400">Player X:</span>
+      <span class="text-red-400 font-semibold">
+        {{ getPlayerDisplayName('X') }}
+      </span>
+    </div>
+
+    <div class="flex justify-between items-center">
+      <span class="text-gray-400">Player O:</span>
+      <span class="text-blue-400 font-semibold">
+        {{ getPlayerDisplayName('O') }}
+      </span>
+    </div>
+
+    <div class="flex justify-between items-center">
+      <span class="text-gray-400">Moves Made:</span>
+      <span class="text-white font-semibold">
+        {{ gameState?.moveHistory?.length || 0 }}
+      </span>
+    </div>
+
+    @if (gameState?.gameOver && gameState?.winner && gameState?.winner !== 'Draw') {
+      <div class="flex justify-between items-center">
+        <span class="text-gray-400">Winner:</span>
+        <span class="text-green-400 font-semibold">
+          Player {{ gameState?.winner }}
+        </span>
+      </div>
+    }
+
+    @if (gameState?.gameOver && gameState?.winner === 'Draw') {
+      <div class="flex justify-between items-center">
+        <span class="text-gray-400">Result:</span>
+        <span class="text-yellow-400 font-semibold">
+          Draw
+        </span>
+      </div>
+    }
+  </div>
+</div>

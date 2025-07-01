@@ -1,0 +1,20 @@
+<div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 w-full">
+  <h3 class="text-white text-lg font-semibold mb-4 text-center">Game Mode</h3>
+  <div class="flex gap-4 justify-center">
+    <button
+      (click)="setGameMode('human-vs-human')"
+      [class]="getModeButtonClass('human-vs-human')">
+      👥 Human vs Human
+    </button>
+    <button
+      (click)="setGameMode('human-vs-ai')"
+      [class]="getModeButtonClass('human-vs-ai')">
+      🤖 Human vs AI
+    </button>
+    <button
+      (click)="setGameMode('ai-vs-ai')"
+      [class]="getModeButtonClass('ai-vs-ai')">
+      🤖🤖 AI vs AI
+    </button>
+  </div>
+</div>

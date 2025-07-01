@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Background -->
+  <rect width="100" height="100" fill="#1e1b4b" rx="16"/>
+
+  <!-- Grid Lines -->
+  <!-- Vertical lines -->
+  <line x1="33" y1="15" x2="33" y2="85" stroke="#8b5cf6" stroke-width="3" stroke-linecap="round"/>
+  <line x1="67" y1="15" x2="67" y2="85" stroke="#8b5cf6" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Horizontal lines -->
+  <line x1="15" y1="33" x2="85" y2="33" stroke="#8b5cf6" stroke-width="3" stroke-linecap="round"/>
+  <line x1="15" y1="67" x2="85" y2="67" stroke="#8b5cf6" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Game Pieces -->
+  <!-- X in top-left (red) -->
+  <g stroke="#ef4444" stroke-width="4" stroke-linecap="round">
+    <line x1="20" y1="20" x2="28" y2="28"/>
+    <line x1="28" y1="20" x2="20" y2="28"/>
+  </g>
+
+  <!-- O in center (blue) -->
+  <circle cx="50" cy="50" r="8" fill="none" stroke="#3b82f6" stroke-width="4"/>
+
+  <!-- X in bottom-right (red) -->
+  <g stroke="#ef4444" stroke-width="4" stroke-linecap="round">
+    <line x1="72" y1="72" x2="80" y2="80"/>
+    <line x1="80" y1="72" x2="72" y2="80"/>
+  </g>
+
+  <!-- O in top-right (blue) -->
+  <circle cx="76" cy="24" r="8" fill="none" stroke="#3b82f6" stroke-width="4"/>
+
+  <!-- X in middle-left (red) -->
+  <g stroke="#ef4444" stroke-width="4" stroke-linecap="round">
+    <line x1="20" y1="45" x2="28" y2="53"/>
+    <line x1="28" y1="45" x2="20" y2="53"/>
+  </g>
+</svg>

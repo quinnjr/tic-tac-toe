@@ -1,0 +1,109 @@
+<div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
+  <h3 class="text-white text-lg font-semibold mb-4 text-center">Player Controls</h3>
+  <div class="grid grid-cols-1 gap-6">
+
+    <!-- Player X (Red) Controls -->
+    <div class="bg-red-500/10 border border-red-400/30 rounded-xl p-4">
+      <h4 class="text-red-400 font-semibold mb-3">Player X (Red)</h4>
+
+      <!-- Control Switch -->
+      <div class="mb-3">
+        <label class="text-gray-400 text-sm block mb-2">Control:</label>
+        <div class="flex gap-2">
+          <button
+            (click)="switchPlayerControl('X', 'human')"
+            [class]="getControlButtonClass('X', 'human')">
+            👤 Human
+          </button>
+          <button
+            (click)="switchPlayerControl('X', 'ai')"
+            [class]="getControlButtonClass('X', 'ai')">
+            🤖 AI
+          </button>
+        </div>
+      </div>
+
+      <!-- Algorithm Selection (only if AI) -->
+      @if (isPlayerAI('X')) {
+        <div>
+          <label class="text-gray-400 text-sm block mb-2">Algorithm:</label>
+          <div class="flex gap-2">
+            <button
+              (click)="setPlayerAlgorithm('X', 'minimax')"
+              [class]="getAlgorithmButtonClass('X', 'minimax')">
+              Minimax
+            </button>
+            <button
+              (click)="setPlayerAlgorithm('X', 'alpha-beta')"
+              [class]="getAlgorithmButtonClass('X', 'alpha-beta')">
+              Alpha-Beta
+            </button>
+          </div>
+        </div>
+      }
+
+      <!-- AI Move Button (only if AI and current player) -->
+      @if (canPlayerMakeMove('X')) {
+        <div class="mt-3">
+          <button
+            (click)="makeAIMove()"
+            class="w-full bg-red-500/20 border border-red-400/30 rounded px-3 py-2 text-red-400 text-sm hover:bg-red-500/30 transition-all duration-200">
+            🤖 Make AI Move
+          </button>
+        </div>
+      }
+    </div>
+
+    <!-- Player O (Blue) Controls -->
+    <div class="bg-blue-500/10 border border-blue-400/30 rounded-xl p-4">
+      <h4 class="text-blue-400 font-semibold mb-3">Player O (Blue)</h4>
+
+      <!-- Control Switch -->
+      <div class="mb-3">
+        <label class="text-gray-400 text-sm block mb-2">Control:</label>
+        <div class="flex gap-2">
+          <button
+            (click)="switchPlayerControl('O', 'human')"
+            [class]="getControlButtonClass('O', 'human')">
+            👤 Human
+          </button>
+          <button
+            (click)="switchPlayerControl('O', 'ai')"
+            [class]="getControlButtonClass('O', 'ai')">
+            🤖 AI
+          </button>
+        </div>
+      </div>
+
+      <!-- Algorithm Selection (only if AI) -->
+      @if (isPlayerAI('O')) {
+        <div>
+          <label class="text-gray-400 text-sm block mb-2">Algorithm:</label>
+          <div class="flex gap-2">
+            <button
+              (click)="setPlayerAlgorithm('O', 'minimax')"
+              [class]="getAlgorithmButtonClass('O', 'minimax')">
+              Minimax
+            </button>
+            <button
+              (click)="setPlayerAlgorithm('O', 'alpha-beta')"
+              [class]="getAlgorithmButtonClass('O', 'alpha-beta')">
+              Alpha-Beta
+            </button>
+          </div>
+        </div>
+      }
+
+      <!-- AI Move Button (only if AI and current player) -->
+      @if (canPlayerMakeMove('O')) {
+        <div class="mt-3">
+          <button
+            (click)="makeAIMove()"
+            class="w-full bg-blue-500/20 border border-blue-400/30 rounded px-3 py-2 text-blue-400 text-sm hover:bg-blue-500/30 transition-all duration-200">
+            🤖 Make AI Move
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+</div>

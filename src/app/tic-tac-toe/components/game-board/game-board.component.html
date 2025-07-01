@@ -1,0 +1,22 @@
+<div class="grid grid-cols-3 gap-4 mb-8 max-w-md mx-auto">
+  @for (cell of gameState?.board; track $index) {
+    <button
+      (click)="makeMove($index)"
+      [disabled]="gameState?.gameOver || cell !== null ||
+        (gameState?.currentPlayer === 'X' && gameState?.playerXControl === 'ai') ||
+        (gameState?.currentPlayer === 'O' && gameState?.playerOControl === 'ai')"
+      [class]="getButtonClass($index, cell)"
+      class="aspect-square text-6xl font-bold rounded-2xl border-2 transition-all duration-300 relative overflow-hidden">
+
+      @if (cell) {
+        <span [class]="cell === 'X' ? 'text-red-400' : 'text-blue-400'">
+          {{ cell }}
+        </span>
+      }
+
+      @if (isRecentMove($index)) {
+        <div class="absolute inset-0 bg-yellow-400/20 animate-ping rounded-2xl"></div>
+      }
+    </button>
+  }
+</div>

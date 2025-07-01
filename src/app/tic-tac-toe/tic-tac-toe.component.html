@@ -1,0 +1,219 @@
+<div class="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 pt-4 px-4 pb-4">
+  <div class="w-full max-w-7xl mx-auto">
+    @if (isLoading) {
+      <div class="text-center">
+        <div class="animate-spin rounded-full h-32 w-32 border-b-2 border-white mx-auto"></div>
+        <p class="text-white mt-4">Loading game...</p>
+      </div>
+    } @else {
+
+      <!-- Main Header with Title and Help Button -->
+      <div class="bg-white/10 backdrop-blur-md rounded-3xl p-6 border border-white/20 mb-6">
+        <div class="flex items-center justify-between">
+          <div class="text-center flex-1">
+            <h1 class="text-4xl font-bold text-white mb-2">🎯 Tic-Tac-Toe AI Battle</h1>
+            <p class="text-gray-300">Advanced AI with Minimax & Alpha-Beta Pruning</p>
+          </div>
+          <div>
+            <button
+              (click)="showHelpButton()"
+              class="bg-white/20 hover:bg-white/30 text-white font-medium py-3 px-6 rounded-xl transition-all duration-200 border border-white/20">
+              ❓ Help
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-12 gap-8">
+
+        <!-- Main Game Area (8 columns) -->
+        <div class="col-span-12 lg:col-span-8 space-y-8">
+
+          <!-- Game Mode Display (automatically determined) -->
+          @if (gameState) {
+            <div class="mb-8">
+              <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 text-center">
+                <h3 class="text-white text-lg font-semibold mb-2">🎮 Current Game Mode</h3>
+                <div class="text-2xl font-bold">
+                  @if (gameState.gameMode === 'human-vs-human') {
+                    <span class="text-green-400">👥 Human vs Human</span>
+                  } @else if (gameState.gameMode === 'human-vs-ai') {
+                    <span class="text-blue-400">🤖 Human vs AI</span>
+                  } @else if (gameState.gameMode === 'ai-vs-ai') {
+                    <span class="text-purple-400">🤖🤖 AI vs AI</span>
+                  }
+                </div>
+                <p class="text-gray-400 text-sm mt-2">Automatically determined by player controls</p>
+              </div>
+            </div>
+          }
+
+          <!-- Game Board Area -->
+          <div class="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20">
+            <!-- Game Status -->
+            @if (gameState) {
+              <div class="text-center mb-6">
+                <div class="text-2xl font-bold text-white mb-2">
+                  @if (!gameState.gameOver) {
+                    <span>{{ getCurrentPlayerName() }}'s Turn</span>
+                  } @else {
+                    <span>{{ getGameResult() }}</span>
+                  }
+                </div>
+                @if (gameState.gameMode === 'ai-vs-ai' && !gameState.gameOver) {
+                  <div class="text-yellow-400 animate-pulse">
+                    🤖🤖 AI Battle in Progress...
+                  </div>
+                }
+                @if (gameState && isCurrentPlayerAI() && gameState.gameMode !== 'ai-vs-ai' && !gameState.gameOver) {
+                  <div class="text-yellow-400 animate-pulse">
+                    🤖 AI is thinking...
+                  </div>
+                }
+              </div>
+            }
+
+            <!-- Game Board -->
+            @if (gameState) {
+              <app-game-board
+                [gameState]="gameState"
+                [lastMovePosition]="lastMovePosition"
+                (moveSelected)="makeMove($event)">
+              </app-game-board>
+            }
+
+            <!-- Reset Button -->
+            <div class="text-center">
+              <button
+                (click)="resetGame()"
+                class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-3 px-8 rounded-xl transition-all duration-200 transform hover:scale-105">
+                🔄 New Game
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Side Panel (4 columns) -->
+        <div class="col-span-12 lg:col-span-4">
+
+          <!-- Player Controls -->
+          @if (gameState) {
+            <div class="mb-8">
+              <app-player-controls
+                [gameState]="gameState"
+                (playerControlSwitched)="switchPlayerControl($event)"
+                (playerAlgorithmChanged)="setPlayerAlgorithm($event)"
+                (aiMoveRequested)="makeAIMove()">
+              </app-player-controls>
+            </div>
+          }
+
+          <!-- Move Timers -->
+          @if (timerState && gameState) {
+            <div class="mb-8">
+              <app-move-timer
+                [timerState]="timerState"
+                [gameState]="gameState">
+              </app-move-timer>
+            </div>
+          }
+
+          <!-- Game Statistics -->
+          @if (gameState) {
+            <div class="mb-8">
+              <app-game-stats
+                [gameState]="gameState">
+              </app-game-stats>
+            </div>
+          }
+
+          <!-- Algorithm Comparison -->
+          @if (gameState) {
+            <div>
+              <app-algorithm-comparison
+                [comparisonData]="algorithmComparison"
+                [isLoading]="showComparison && !algorithmComparison"
+                (runComparison)="runAlgorithmComparison()">
+              </app-algorithm-comparison>
+            </div>
+          }
+
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Help Modal -->
+  @if (showHelpModal) {
+    <div class="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+      <div class="bg-gray-900 rounded-3xl p-8 max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-white/20">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-3xl font-bold text-white">🎯 Tic-Tac-Toe AI Guide</h2>
+          <button
+            (click)="closeHelpModal()"
+            class="text-gray-400 hover:text-white text-2xl transition-colors">
+            ✕
+          </button>
+        </div>
+
+        <!-- Game Modes -->
+        <div class="mb-8">
+          <h3 class="text-xl font-semibold text-blue-400 mb-4">🎮 Game Modes</h3>
+          <div class="bg-white/10 rounded-lg p-4">
+            <div class="space-y-3 text-gray-300">
+              <p><strong class="text-blue-300">👥 Human vs Human:</strong> Classic two-player mode</p>
+              <p><strong class="text-green-300">🤖 Human vs AI:</strong> Challenge the AI opponent</p>
+              <p><strong class="text-purple-300">🤖🤖 AI vs AI:</strong> Watch two AIs battle it out</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Algorithms -->
+        <div class="mb-8">
+          <h3 class="text-xl font-semibold text-red-400 mb-4">🧠 AI Algorithms</h3>
+          <div class="bg-white/10 rounded-lg p-4">
+            <div class="space-y-3 text-gray-300">
+              <p><strong class="text-red-300">Minimax:</strong> Classic algorithm that explores all possible moves</p>
+              <p><strong class="text-green-300">Alpha-Beta:</strong> Optimized version that prunes unnecessary branches</p>
+              <div class="border-l-4 border-green-400 pl-4 mt-4">
+                <p class="text-sm"><strong>Performance:</strong> Alpha-Beta typically explores 40-60% fewer nodes while making identical moves!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="mb-8">
+          <h3 class="text-xl font-semibold text-yellow-400 mb-4">🎛️ Player Controls</h3>
+          <div class="bg-white/10 rounded-lg p-4">
+            <div class="space-y-3 text-gray-300">
+              <p><strong class="text-yellow-300">Control Switch:</strong> Toggle between Human and AI for each player</p>
+              <p><strong class="text-blue-300">Algorithm Selection:</strong> Choose Minimax or Alpha-Beta for AI players</p>
+              <p><strong class="text-green-300">Manual AI Move:</strong> Force an AI to make a move when it's their turn</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Features -->
+        <div>
+          <h3 class="text-xl font-semibold text-purple-400 mb-4">✨ Features</h3>
+          <div class="bg-white/10 rounded-lg p-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-300">
+              <div>
+                <p>⏱️ Move timers for each player</p>
+                <p>📊 Real-time game statistics</p>
+                <p>🎯 Visual win highlighting</p>
+              </div>
+              <div>
+                <p>🔄 Instant game reset</p>
+                <p>📱 Responsive design</p>
+                <p>🎨 Beautiful animations</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>
+

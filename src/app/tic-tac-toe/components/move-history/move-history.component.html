@@ -1,0 +1,37 @@
+@if (hasAnyMoves()) {
+  <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
+    <h3 class="text-white text-lg font-semibold mb-4">📜 Move History</h3>
+
+    <div class="space-y-2 max-h-64 overflow-y-auto custom-scrollbar">
+      @for (move of getMoves(); track $index) {
+        <div class="flex items-center justify-between p-3 bg-white/5 rounded-lg hover:bg-white/10 transition-colors">
+          <div class="flex items-center space-x-3">
+            <span class="text-gray-400 text-sm font-mono w-6">{{ $index + 1 }}.</span>
+            <span [class]="getMovePlayerClass(move.player)" class="font-semibold text-lg">
+              {{ move.player }}
+            </span>
+            <span class="text-gray-300 text-sm">
+              {{ getPlayerDisplayName(move.player) }}
+            </span>
+          </div>
+
+          <div class="text-right">
+            <div class="text-white font-mono text-sm">Position {{ move.position }}</div>
+            <div class="text-gray-400 text-xs">{{ getPositionDisplayName(move.position) }}</div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="mt-4 text-center text-gray-400 text-sm">
+      Total moves: {{ getMoves().length }}
+    </div>
+  </div>
+} @else {
+  <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 text-center">
+    <h3 class="text-white text-lg font-semibold mb-4">📜 Move History</h3>
+    <div class="text-gray-400">
+      No moves yet. Start playing to see the history!
+    </div>
+  </div>
+}
